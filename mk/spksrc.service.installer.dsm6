@@ -291,7 +291,7 @@ postinst ()
     $MKDIR "${SYNOPKG_PKGVAR}" 2>&1 | install_log
 
     call_func "service_postinst" install_log
-    call_func "service_clean_tmpdir"
+    call_func "service_clean_tmpdir" install_log
 
     if [ -n "${LOG_FILE}" ]; then
         echo "Installation log: ${INST_LOG}" >> ${LOG_FILE}
@@ -356,7 +356,7 @@ postupgrade ()
 {
     log_step "postupgrade"
 
-    call_func "service_restore"
+    call_func "service_restore" install_log
 
     # Restore some stuff, has to be cp otherwise fails on directories
     $CP "${TMP_DIR}"/. "${SYNOPKG_PKGVAR}" 2>&1 | install_log
